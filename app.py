@@ -1,5 +1,17 @@
 import gradio as gr
 from styles import BASIC_STYLE
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, GenerationConfig
+
+model_id = "declare-lab/flan-alpaca-large"
+torch_device = "cuda" if torch.cuda.is_available() else "cpu"
+
+if torch_device == "cuda":
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto")
+else:
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_id)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+generation_config = GenerationConfig.from_pretrained(model_id)
+generation_config.do_sample = True
 
 pref_btns = []
 
