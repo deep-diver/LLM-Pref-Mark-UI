@@ -7,12 +7,13 @@ def record(btn):
   # scale 1 to 4
   score = len(btn)
 
-
   if "A" in btn:
     # record in DB
+    print(f"A on score of {score}")
   else:
     # in case of "B"
     # record in DB
+    print(f"B on score of {score}")
 
 def generate(prompt):
   model_inputs = tokenizer([prompt, prompt], return_tensors="pt").to(torch_device)
